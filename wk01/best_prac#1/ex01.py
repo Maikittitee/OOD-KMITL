@@ -37,6 +37,6 @@ elif (bmi < 35):
 elif (bmi < 40):
 	print("Case II Obesity.")
 else :
-	print("Case II Obesity.")
+	print("Case III Obesity.")
 
 
