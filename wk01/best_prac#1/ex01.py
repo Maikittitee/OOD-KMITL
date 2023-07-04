@@ -27,16 +27,16 @@ w,h = map(float, input("Enter your weight(kg) and height(m) : ").split())
 bmi = w / (h * h)
 print("Your status is : ", end = "")
 if (bmi < 18.5):
-	print("Below normal weight")
+	print("Below normal weight.")
 elif (bmi < 25):
-	print("Normal weight")
+	print("Normal weight.")
 elif (bmi < 30):
-	print("Overweight")
+	print("Overweight.")
 elif (bmi < 35):
-	print("Case I Obesity")
+	print("Case I Obesity.")
 elif (bmi < 40):
-	print("Case II Obesity")
+	print("Case II Obesity.")
 else :
-	print("Case II Obesity")
+	print("Case II Obesity.")
 
 
