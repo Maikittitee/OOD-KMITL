@@ -17,27 +17,21 @@ def reverse_rotate(str1):
  
 print("*** String Rotation ***")
 t1,t2 = input("Enter 2 strings : ").split()
-c = 1
-# u1 = t1[:]
-# u2 = t2[:]
-t = 1
-u1 = rotate(t1)
-u2 = reverse_rotate(t2)
-print(f"{c} {u1} {u2}")
-while (u1 != t1 or u2 != t2):
-	c += 1
-	u1 = rotate(u1)
-	u2 =reverse_rotate(u2)
-	if (c <= 6 and t == 1):
-		print(f"{c} {u1} {u2}")
-	elif (t == 1):
-		t = 0
-		print(" . . . . . ")
-	if (c > 5 and u1 == t1 and u2 == t2):
-		print(f"{c} {u1} {u2}")
-
-
-print(f"Total of  {c} rounds.")
+cnt = 0
+u1 = t1[:]
+u2 = t2[:]
+while (True):
+    cnt += 1
+    u1 = rotate(u1)
+    u2 = reverse_rotate(u2)
+    if (cnt < 6 or (u1 == t1 and u2 == t2)):
+        print(f"{cnt} {u1} {u2}")
+    elif (cnt == 6):
+        print(" . . . . . ")
+    if (u1 == t1 and u2 == t2):
+        break
+        
+print(f"Total of  {cnt} rounds.")
 
 # *** String Rotation ***
 # Enter 2 strings : debate string
