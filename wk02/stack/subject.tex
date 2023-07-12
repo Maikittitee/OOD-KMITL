@@ -1,5 +1,46 @@
-ที่จอดรถของนาย ก เป็นส่วนที่แรเงาสีฟ้า ส่วนสีแดงเป็นที่ของนาย ข ซี่งเป็นญาติกัน ที่จอดรถของนาย ก และ นาย ข แคบมาก จอดรถได้เรียงเดี่ยว นาย ข ไม่ได้ใช้ที่จอดรถ แต่ อนุญาติให้นาย ก ใช้ที่จอดรถของเขาได้โดยไม่จอดรถแช่ไว้ เนื่องจากซอยแคบ ดังนั้นการมาจอด (arrive) และการรับรถ (depart)จะเป็นลักษณะของ stack เงื่อนไขคือ ในการรับรถ x ใดๆอยากให้ลำดับรถเป็นเหมือนเดิม ดังรูป simulate การจอดรถในที่จอดรถของนาย ก โดยใช้ operation ของ stack ข้างล่างเป็นตัวอย่าง output
+\documentclass[12pt]{article}
+\usepackage{lingmacros}
+\usepackage{tree-dvips}
+\begin{document}
 
-การรับ input : รับ input 4 ค่าใน 1 บรรทัดโดยให้แยกโดย \" \" (space bar) โดยตำแหน่งแรกคือ จำนวนสูงสุดที่รถสามารถจอดได้ในซอยของ นาย ก ตำแหน่งที่สองคือ รถที่จอดอยู่ในซอยของ นาย ก ตำแหน่งที่สามคือ การกระทำเช่น ถ้าเป็น arrive จะทำการเพิ่มรถในซอย ส่วน depart จะทำการเอารถออกจากซอย โดยรถที่จะทำการเพิ่มหรือนำออกนั้นจะเป็น เลขในตำแหน่งที่ 4
+\section*{Notes for My Paper}
 
-***หมายเหตุ ถ้าในซอยไม่มีรถอยู่เลยให้ input = 0 ในตำแหน่งที่ 2***
+Don't forget to include examples of topicalization.
+They look like this:
+
+{\small
+\enumsentence{Topicalization from sentential subject:\\
+\shortex{7}{a John$_i$ [a & kltukl & [el &
+  {\bf l-}oltoir & er & ngii$_i$ & a Mary]]}
+{ & {\bf R-}clear & {\sc comp} &
+  {\bf IR}.{\sc 3s}-love   & P & him & }
+{John, (it's) clear that Mary loves (him).}}
+}
+
+\subsection*{How to handle topicalization}
+
+I'll just assume a tree structure like (\ex{1}).
+
+{\small
+\enumsentence{Structure of A$'$ Projections:\\ [2ex]
+\begin{tabular}[t]{cccc}
+    & \node{i}{CP}\\ [2ex]
+    \node{ii}{Spec} &   &\node{iii}{C$'$}\\ [2ex]
+        &\node{iv}{C} & & \node{v}{SAgrP}
+\end{tabular}
+\nodeconnect{i}{ii}
+\nodeconnect{i}{iii}
+\nodeconnect{iii}{iv}
+\nodeconnect{iii}{v}
+}
+}
+
+\subsection*{Mood}
+
+Mood changes when there is a topic, as well as when
+there is WH-movement.  \emph{Irrealis} is the mood when
+there is a non-subject topic or WH-phrase in Comp.
+\emph{Realis} is the mood when there is a subject topic
+or WH-phrase.
+
+\end{document}
