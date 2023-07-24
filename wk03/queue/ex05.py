@@ -96,6 +96,9 @@ if __name__ == "__main__":
 		print("No starting Point ?")
 	print(f"starting point is {start_x},{start_y}")
 	while not is_that_path_can_find_portal(start_x, start_y, map_d, add):
+		if len(q) == 0:
+			print('Cannot reach the exit portal.')
+			break
 		add = q.dequeue()
 		for j in ["L", "R", "U", "D"]:
 			put = add + j
@@ -104,6 +107,6 @@ if __name__ == "__main__":
 		cnt += 1
 		# if (cnt == 4):
 		# 	break
-	print(q)
+	# print(q)
 		# print("ok")
 	# display solution
