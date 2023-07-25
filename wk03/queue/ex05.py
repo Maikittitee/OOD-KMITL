@@ -39,22 +39,11 @@ def	find_start_xy(height, width, map_d):
 				return x,y
 	return -1,-1
 
-def is_that_path_possible(start_x, start_y, map_d, paths:str):
-	i = start_y
-	j = start_x
-	for path in paths:
-		if (path == 'L'):
-			j -= 1
-		if (path == 'R'):
-			j += 1
-		if (path == 'D'):
-			i += 1
-		if (path == 'U'):
-			i -= 1
-	
-	if not (0 <= j < len(map_d[0]) and 0 <= i < len(map_d)):
+def is_that_point_possible(map_d, pnt):
+	pnt = list(pnt)
+	if not (0 <= pnt[0] < len(map_d[0]) and 0 <= pnt[1] < len(map_d)):
 		return (False)
-	elif (map_d[i][j] != '_' and map_d[i][j] != 'O' and map_d[i][j] != 'F'):
+	elif (map_d[pnt[1]][pnt[0]] != '_' and map_d[pnt[1]][pnt[0]] != 'O' and map_d[pnt[1]][pnt[0]] != 'F'):
 		return (False)
 	return (True)
 
@@ -113,9 +102,22 @@ def	is_that_path_can_find_portal(start_x, start_y, map_d, paths:str):
 	if (map_d[i][j] == 'O'):
 		# print("FOUNDDDDDD")
 		# print(paths)
-		display_point(map_d, start_x, start_y, paths)
+		# display_point(map_d, start_x, start_y, paths)
 		return (True)
 	return (False)
+
+def	gogo(old_pnt, j):
+	new_point = list(old_pnt)
+	if (j == 'U'):
+		new_point[1] -= 1
+	if (j == 'R'):
+		new_point[0] += 1
+	if (j == 'D'):
+		new_point[1] += 1
+	if (j == 'L'):
+		new_point[0] -= 1
+	return (tuple(new_point))
+
 
 if __name__ == "__main__":
 	size = input("Enter width, height, and room: ").split()
@@ -125,19 +127,26 @@ if __name__ == "__main__":
 		print("Invalid map input.")
 	q = Queue()
 	add = ""
-	q.enqueue("")
+	# q.enqueue("")
 	cnt = 0
 	start_x, start_y = find_start_xy(int(size[1]), int(size[0]), map_d)
 	if (start_x == -1 or start_y == -1):
 		print("No starting Point ?")
-	# q.enqueue(tuple([start_x, start_y]))
+	q.enqueue(tuple([start_x, start_y]))
 	while not is_that_path_can_find_portal(start_x, start_y, map_d, add):
 		if len(q) == 0:
 			print('Cannot reach the exit portal.')
 			break
-		add = q.dequeue()
+		old = q.dequeue()
 		for j in ["U", "R", "D", "L"]:
-			put = add + j
-			if (is_that_path_possible(start_x, start_y, map_d, put)):
+			put = gogo(old, j)
+			if (is_that_point_possible(map_d, put)):
 				q.enqueue(put)
+			tmp = list(put)
+			x = tmp[0]
+			y = tmp[1]
+			if (map_d[y][x] == "O"):
+				print("Found the exit portal.")
+				
+		print(f"Queue: {q}")
 		cnt += 1
