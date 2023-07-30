@@ -97,8 +97,8 @@ class LinkedList:
 			i += 1
 		if  (src_node and dst_node):
 			src_node.next = dst_node
-		else:
-			
+		# else:
+
 	
 	def	is_loop(self):
 		cnt = 0
