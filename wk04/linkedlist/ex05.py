@@ -132,18 +132,61 @@ def	do_buttom_up(head:LinkedList, b, size):
 	head.head = buttom_head
 	
 def	do_riffle(head:LinkedList, r, size):
-	new_list = LinkedList()
 	n_up = int(size * r/100)
 	curr = head.head
-	for i in range(n_up - 1):
+	for i in range(n_up):
+		tmp3 = curr
 		curr = curr.next
-	buttom_head = curr.next
-		
+	target_head = curr
+	old_head = head.head
+	tmp1 = old_head.next
+	tmp2 = target_head.next
+	print(f"old head is {old_head.value}")
+	print(f"target is {target_head.value}")
+	print(f"tmp3 is {tmp3.value}")
+
+	i = 1
+	while (tmp2 != None and old_head.value != tmp3.value):
+		old_head.next = target_head
+		old_head = tmp1
+		tmp1 = old_head.next
+		target_head.next = old_head
+		target_head = tmp2
+		tmp2 = target_head.next
+		if (tmp2 != None):
+			old_head.next = target_head
+
+
+	if (tmp2 == None and old_head.value != tmp3.value):
+		# print(f"target is {target_head.value} and old_head is {old_head.value}")
+		# print(f"next to old head {old_head.next.value}")
+		target_head.next = old_head.next
+		curr = old_head.next
+		while (curr.next.value != tmp3.next.value):
+			print(f"curr.next.value: {curr.next.value}")
+			curr=curr.next
+		curr.next = None
+		old_head.next = target_head
+		# print(old_head.next.value)
+		# print(old_head.next.next.value)
+		# print(old_head.next.next.next)
+
+	if (old_head.value == tmp3.value and tmp2 != None):
+		old_head.next = target_head
+
+	# print(f"{head.head.value}")
+	# print(f"{head.head.next.value}")
+	# print(f"{head.head.next.next.value}")
+	# print(f"{head.head.next.next.next.value}")
+	# print(f"{head.head.next.next.next.next}")
+	# 	# i -= 1
+	# printLL(head)
+
 
 
 def scarmble(head:LinkedList, b, r, size):
 	# buttom up
-	print(f"Start : ", end = '')
+	print(f"tart : ", end = '')
 	printLL(head)
 	print(f"BottomUp {float(size)} % : ", end = '')
 	do_buttom_up(b, size)
@@ -159,10 +202,10 @@ def scarmble(head:LinkedList, b, r, size):
 inp1, inp2 = input('Enter Input : ').split('/')
 print('-' * 50)
 h = createLL(inp1.split())
-printLL(h.head)
+printLL(h)
 print()
-do_buttom_up(h, 50, SIZE(h))
-printLL(h.head)
+do_riffle(h, 60, SIZE(h))
+printLL(h)
 # for i in inp2.split('|'):
 	# print("Start : {0}".format(printLL(h)))
 	# k = i.split(',')
