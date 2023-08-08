@@ -104,10 +104,11 @@ def createLL(LL):
 
 def printLL(head:LinkedList):
 	curr = head.head
+	s = ""
 	while (curr != None):
-		print(curr.value, end = " ")
+		s += str(curr.value) + " "
 		curr = curr.next
-	print()
+	return (s)
 
 def SIZE(head):
 	curr = head.head
@@ -141,11 +142,6 @@ def	do_riffle(head:LinkedList, r, size):
 	old_head = head.head
 	tmp1 = old_head.next
 	tmp2 = target_head.next
-	print(f"old head is {old_head.value}")
-	print(f"target is {target_head.value}")
-	print(f"tmp3 is {tmp3.value}")
-
-	i = 1
 	while (tmp2 != None and old_head.value != tmp3.value):
 		old_head.next = target_head
 		old_head = tmp1
@@ -155,62 +151,44 @@ def	do_riffle(head:LinkedList, r, size):
 		tmp2 = target_head.next
 		if (tmp2 != None):
 			old_head.next = target_head
-
-
 	if (tmp2 == None and old_head.value != tmp3.value):
-		# print(f"target is {target_head.value} and old_head is {old_head.value}")
-		# print(f"next to old head {old_head.next.value}")
 		target_head.next = old_head.next
 		curr = old_head.next
 		while (curr.next.value != tmp3.next.value):
-			print(f"curr.next.value: {curr.next.value}")
 			curr=curr.next
 		curr.next = None
 		old_head.next = target_head
-		# print(old_head.next.value)
-		# print(old_head.next.next.value)
-		# print(old_head.next.next.next)
-
-	if (old_head.value == tmp3.value and tmp2 != None):
+	elif (old_head.value == tmp3.value and tmp2 != None):
+		old_head.next = target_head
+	else:
 		old_head.next = target_head
 
-	# print(f"{head.head.value}")
-	# print(f"{head.head.next.value}")
-	# print(f"{head.head.next.next.value}")
-	# print(f"{head.head.next.next.next.value}")
-	# print(f"{head.head.next.next.next.next}")
-	# 	# i -= 1
-	# printLL(head)
+def	do_deriffle(head:LinkedList, r:float, size:int):
+	
+	
 
-
-
-def scarmble(head:LinkedList, b, r, size):
-	# buttom up
-	print(f"tart : ", end = '')
-	printLL(head)
-	print(f"BottomUp {float(size)} % : ", end = '')
-	do_buttom_up(b, size)
-	printLL(head)
-	print(f"Riffle {float(size)} % : ", end='')
+def scarmble(head:LinkedList, b:float, r:float, size):
+	print(f"BottomUp {b:.3f} % : ", end = '')
+	do_buttom_up(head, b, size)
+	print(printLL(head))
+	print(f"Riffle {r:.3f} % : ", end='')
 	do_riffle(head, r, size)
-
-
-
-	# Code Here
-	pass
+	print(printLL(head))
+	print(f"Deriffle {r:.3f} % : ", end='')
+	do_deriffle(head, r, size)
+	print(printLL(head))
+	print(f"Debottomup {b:.3f} % : ", end = '')
+	do_buttom_up(head, 100-b, size)
+	print(printLL(head))
 
 inp1, inp2 = input('Enter Input : ').split('/')
 print('-' * 50)
 h = createLL(inp1.split())
-printLL(h)
-print()
-do_riffle(h, 60, SIZE(h))
-printLL(h)
-# for i in inp2.split('|'):
-	# print("Start : {0}".format(printLL(h)))
-	# k = i.split(',')
-	# if k[0][0] == "B" and k[1][0] == "R":
-	# 	scarmble(h, float(k[0][2:]), float(k[1][2:]), SIZE(h))
-	# elif k[0][0] == "R" and k[1][0] == "B":
-	# 	scarmble(h, float(k[1][2:]), float(k[0][2:]), SIZE(h))
-	# print('-' * 50)
+for i in inp2.split('|'):
+	print("Start : {0}".format(printLL(h)))
+	k = i.split(',')
+	if k[0][0] == "B" and k[1][0] == "R":
+		scarmble(h, float(k[0][2:]), float(k[1][2:]), SIZE(h))
+	elif k[0][0] == "R" and k[1][0] == "B":
+		scarmble(h, float(k[1][2:]), float(k[0][2:]), SIZE(h))
+	print('-' * 50)
