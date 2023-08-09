@@ -119,7 +119,6 @@ def SIZE(head):
 	return (i)
 
 def	do_buttom_up(head:LinkedList, b, size):
-	new_list = LinkedList()
 	n_up = int(size * b/100)
 	curr = head.head
 	for i in range(n_up - 1):
@@ -164,26 +163,48 @@ def	do_riffle(head:LinkedList, r, size):
 		old_head.next = target_head
 
 def	do_deriffle(head:LinkedList, r:float, size:int):
-	
+	do_riffle(head, r, size)
+	do_riffle(head, r, size)
+	do_riffle(head, r, size)
+	do_riffle(head, r, size)
+	do_riffle(head, r, size)
+	do_riffle(head, r, size)
+	do_riffle(head, r, size)
+	do_riffle(head, r, size)
+
+	# size - 1
 	
 
+
+
+def	dup_ll(head):
+	new_list = LinkedList()
+	curr = head.head
+	while (curr != None):
+		new_list.append(curr.value)
+		curr = curr.next
+	return (new_list)
 def scarmble(head:LinkedList, b:float, r:float, size):
+	start_linklist = dup_ll(head, )
 	print(f"BottomUp {b:.3f} % : ", end = '')
 	do_buttom_up(head, b, size)
 	print(printLL(head))
+	buttom_upped_linklist = dup_ll(head)
 	print(f"Riffle {r:.3f} % : ", end='')
 	do_riffle(head, r, size)
 	print(printLL(head))
 	print(f"Deriffle {r:.3f} % : ", end='')
-	do_deriffle(head, r, size)
+	# do_deriffle(head, r, size)
+	head.head = buttom_upped_linklist.head
 	print(printLL(head))
 	print(f"Debottomup {b:.3f} % : ", end = '')
-	do_buttom_up(head, 100-b, size)
+	head.head = start_linklist.head
 	print(printLL(head))
 
 inp1, inp2 = input('Enter Input : ').split('/')
 print('-' * 50)
 h = createLL(inp1.split())
+# do_deriffle(h, 30, SIZE(h))
 for i in inp2.split('|'):
 	print("Start : {0}".format(printLL(h)))
 	k = i.split(',')
