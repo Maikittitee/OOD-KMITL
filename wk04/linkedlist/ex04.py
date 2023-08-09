@@ -10,9 +10,12 @@ class LinkedList:
 	def __str__(self):
 		if self.isEmpty():
 			return "Empty"
-		cur, s = self.head, str(self.head.value) + " "
-		while cur.next != None:
-			s += str(cur.next.value) + " "
+		cur, s = self.head, ""
+		while cur != None:
+			if (cur.next == None):
+				s += str(cur.value)
+			else:
+				s += str(cur.value) + "->"
 			cur = cur.next
 		return s
 
@@ -79,16 +82,34 @@ class LinkedList:
 			i += 1
 			curr = curr.next
 		return ("Out of Range")
-		# Code Here
-
+		
+	def	is_loop(self):
+		curr = self.head
+		history = []
+		while (curr):
+			if (curr in history):
+				return (1)
+			history.append(curr)
+			curr = curr.next
+		return (0)
+	
 	def	set_node(self, src, dst):
+		size = self.size()
 		i,curr = 0, self.head
 		dst_node = None
 		src_node = None
 		if (self.isEmpty()):
 			print("Error! {list is empty}")
-		
-		while (curr):
+			return (1)
+		elif (src >= size):
+			print("Error! {index not in length}: ", end="")
+			print(src)
+			return (1)
+		elif (dst >= size):
+			print(f"index not in length, append : {dst}")
+			self.append(dst)
+			return (1)
+		while (i < size and curr):
 			if (i == src):
 				src_node = curr
 			if (i == dst):
@@ -97,34 +118,27 @@ class LinkedList:
 			i += 1
 		if  (src_node and dst_node):
 			src_node.next = dst_node
-		# else:
+			print(f"Set node.next complete!, index:value = {src}:{src_node.value} -> {dst}:{dst_node.value}")
+			return (1)
+		
 
-	
-	def	is_loop(self):
-		cnt = 0
-		first = self.head
-		curr = self.head
-		while (curr):
-			if (cnt != 0 and curr is first):
-				return (True)
-			else:
-				cnt += 1
-			curr = curr.next
-		return (False)
 
 
 L = LinkedList()
-inp = input('Enter Input : ').split(',')
+inp = input('Enter input : ').split(',')
 for i in inp:
 	mode,param = i.split()
 	if mode == "A":
 		L.append(param)
+		print(L)
 	elif mode == "S":
 		src,dst = param.split(':')
 		L.set_node(int(src), int(dst))
-		if (L.is_loop()):
-			print("Found Loop")
-		else:
-			print("No Loop")
-	
+	# if (not L.is_loop()):
+	# 	print(L)
+if (L.is_loop()):
+	print("Found Loop")
+else:
+	print("No Loop")
 	print(L)
+	
