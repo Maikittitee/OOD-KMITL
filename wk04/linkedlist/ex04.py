@@ -1,3 +1,5 @@
+# import readline
+
 class Node:
 	def __init__(self, value):
 		self.value = value
@@ -123,22 +125,23 @@ class LinkedList:
 		
 
 
-
-L = LinkedList()
-inp = input('Enter input : ').split(',')
-for i in inp:
-	mode,param = i.split()
-	if mode == "A":
-		L.append(param)
+if __name__ == "__main__":
+	inp = input('Enter input : ')
+	L = LinkedList()
+	inp = inp.split(',')
+	for i in inp:
+		mode,param = i.split()
+		if mode == "A":
+			L.append(param)
+			print(L)
+		elif mode == "S":
+			src,dst = param.split(':')
+			L.set_node(int(src), int(dst))
+		# if (not L.is_loop()):
+		# 	print(L)
+	if (L.is_loop()):
+		print("Found Loop")
+	else:
+		print("No Loop")
 		print(L)
-	elif mode == "S":
-		src,dst = param.split(':')
-		L.set_node(int(src), int(dst))
-	# if (not L.is_loop()):
-	# 	print(L)
-if (L.is_loop()):
-	print("Found Loop")
-else:
-	print("No Loop")
-	print(L)
-	
+		
