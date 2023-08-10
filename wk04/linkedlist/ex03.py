@@ -10,9 +10,12 @@ class LinkedList:
 	def __str__(self):
 		if self.isEmpty():
 			return "Empty"
-		cur, s = self.head, str(self.head.value) + " "
-		while cur.next != None:
-			s += str(cur.next.value) + " "
+		cur, s = self.head, ""
+		while cur != None:
+			if (cur.next == None):
+				s += str(cur.value) + ""
+			else:
+				s += str(cur.value) + " -> "
 			cur = cur.next
 		return s
 
@@ -98,8 +101,8 @@ class LinkedList:
 def	join_node(inp, checker):
 	for i in inp:
 		ele = i.split('>')
-		first = int(ele[0])
-		sec = int(ele[1])
+		first = ele[0]
+		sec = ele[1]
 		checker.get(first).next = checker.get(sec)
 
 def	get_heads(inp, checker):
@@ -108,20 +111,20 @@ def	get_heads(inp, checker):
 	ret_list = []
 	for i in inp:
 		ele = i.split('>')
-		first = int(ele[0])
-		sec = int(ele[1])
-		print(f"when {i} ---")
+		first = ele[0]
+		sec = ele[1]
+		# print(f"when {i} ---")
 		if (head_checker.get(first) == None):
 			head_checker[first] = checker.get(first)
-			print(f"{first} is head")
+			# print(f"{first} is head")
 		if  (pointed_checker.get(sec) == None):
 			pointed_checker[sec] = checker.get(sec)
-			print(f"{sec} was point")
+			# print(f"{sec} was point")
 
 	for k,v in head_checker.items():
 		if (pointed_checker.get(k) == None):
 			ret_list.append(v)
-			print(f"append {k} to heads")
+			# print(f"append {k} to heads")
 	
 	return (ret_list)
 
@@ -167,6 +170,7 @@ def ft_size(node):
 		curr,cnt = node,0
 		while (curr):
 			curr = curr.next
+			# print("eiei is here")
 			cnt += 1
 		return (cnt)
 
@@ -185,49 +189,78 @@ def nex_curr(curr):
 def	swap_merge(heads):
 	ll = LinkedList()
 	lim = max_size(heads)
-	print(f"max size is {lim}")
+	# print(f"max size is {lim}")
 	currs = [head for head in heads]
 	i = 0
 	j = 0
 	while (i < lim):
-		print(f"i is {i}")
+		# print(f"i is {i}")
 		j = 0
 		for curr in currs:
 			if (curr != None):
 				tmp = curr
 				currs[j] = ll.append(tmp)
-				print(f"tmp is {tmp.value} and next is {curr.value}")
-			else:
-				print("curr is None")
+				# print(f"tmp is {tmp.value} and next is {curr.value}")
+			# else:
+				# print("curr is None")
 			j += 1
 			# curr = next_curr(curr)
 		i += 1
 	return (ll)
-			
 
+def ft_size_promax(node, intersec):
+		passed = []
+		curr,cnt = node,0
+		while (curr):
+			passed.append(curr)
+			curr = curr.next
+			cnt += 1
+			# print("eiei is here2")
+			if (curr in passed):
+				break
+		return (cnt)
+
+def	print_intersec(intersec):
+	for node in intersec:
+		print(f"Node({node.value}, size={ft_size_promax(node, intersec)})")
 
 
 nodes = dict()
 inp = input("Enter edges: ").split(',')
 for i in inp:
 	ele = i.split('>')
-	first = int(ele[0])
-	sec = int(ele[1])
+	first = ele[0]
+	sec = ele[1]
 	# print(checker.get(first))
 	if (nodes.get(first) == None):
 		nodes.update({first: Node(first)})
 	if (nodes.get(sec) == None):
 		nodes.update({sec: Node(sec)})
 
+def	remove_intersec_head(heads:list, intersec):
+	tmps = [i for i in heads]
+	for tmp in tmps:
+		if (tmp in intersec):
+			heads.remove(tmp)
+
+		
+
 join_node(inp, nodes)
-print(nodes)
+# print(nodes)
 heads = get_heads(inp, nodes)
 # get intersection
 intersec = get_intersec(nodes, heads)
-print(intersec)
+intersec = sorting_head(intersec, nodes)
+if (len(intersec) == 0):
+	print("No intersection")
+	exit()
+# print(intersec)
+else:
+	print_intersec(intersec)
 # remove intersec
 # get new head
 remove_intersec(nodes, heads, intersec)
+remove_intersec_head(heads, intersec)
 # sorting head
 heads = sorting_head(heads, nodes)
 # print(heads)
@@ -240,6 +273,7 @@ for head in heads:
 	print('---')
 # ok i can get it
 # swap merge
+print("Delete intersection then swap merge:")
 ll = swap_merge(heads)
 print(ll)
 
