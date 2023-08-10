@@ -90,18 +90,100 @@ class LinkedList:
 				return True
 		return False
 
+def	join_node(inp, checker):
+	for i in inp:
+		ele = i.split('>')
+		first = int(ele[0])
+		sec = int(ele[1])
+		checker.get(first).next = checker.get(sec)
+
+def	get_heads(inp, checker):
+	head_checker = dict()
+	pointed_checker = dict()
+	ret_list = []
+	for i in inp:
+		ele = i.split('>')
+		first = int(ele[0])
+		sec = int(ele[1])
+		print(f"when {i} ---")
+		if (head_checker.get(first) == None):
+			head_checker[first] = checker.get(first)
+			print(f"{first} is head")
+		if  (pointed_checker.get(sec) == None):
+			pointed_checker[sec] = checker.get(sec)
+			print(f"{sec} was point")
+
+	for k,v in head_checker.items():
+		if (pointed_checker.get(k) == None):
+			ret_list.append(v)
+			print(f"append {k} to heads")
+	
+	return (ret_list)
+
+def	get_intersec(nodes, heads):
+	passed = []
+	intersec = []
+	for head in heads:
+		curr = head
+		while (curr):
+			if (curr not in passed):
+				passed.append(curr)
+			elif (curr not in intersec):
+				intersec.append(curr)
+				break
+			curr = curr.next
+	return (intersec)
+
+def	remove_intersec(nodes, heads, intersec):
+	new_heads = []
+	need_head = 0
+	for head in heads:
+		curr = head
+		while (curr):
+			if (need_head):
+				new_heads.append(curr)
+				need_head = 0
+			tmp = curr.next
+			if (curr.next in intersec):
+				print(f"{curr.next.value} is in intersec")
+				tmp = tmp.next
+				curr.next = None
+				need_head = 1
+			curr = tmp
+	return (new_heads)
+	
+
+
+
 
 ll = LinkedList()
-tmp = []
+nodes = dict()
 inp = input("Enter edges: ").split(',')
 for i in inp:
 	ele = i.split('>')
-	old = int(ele[0])
-	new = int(ele[1])
-	new_node = Node(old)
-	new_next_node = Node(new)
-	new_node.next = new_next_node
-	tmp.append(new_node)
-	
-	for node in tmp:
-		
+	first = int(ele[0])
+	sec = int(ele[1])
+	# print(checker.get(first))
+	if (nodes.get(first) == None):
+		nodes.update({first: Node(first)})
+	if (nodes.get(sec) == None):
+		nodes.update({sec: Node(sec)})
+
+join_node(inp, nodes)
+print(nodes)
+heads = get_heads(inp, nodes)
+# get intersection
+intersec = get_intersec(nodes, heads)
+print(intersec)
+# remove intersec
+print(f"new head is {remove_intersec(nodes, heads, intersec)}")
+for head in heads:
+	curr = head
+	while (curr):
+		print(curr.value, end="->")
+		curr = curr.next
+	print()
+	print('---')
+# get new head
+# swap merge
+
