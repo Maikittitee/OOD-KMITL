@@ -19,15 +19,20 @@ class LinkedList:
 	def isEmpty(self):
 		return self.head == None
 
-	def append(self, item):
-		new_node = Node(item)
+	def append(self, new_node):
 		if (self.isEmpty()):
 			self.head = new_node
+			tmp = new_node.next
+			new_node.next = None
+			return (tmp)
 		else:
 			curr = self.head
 			while (curr.next):
 				curr = curr.next
 			curr.next = new_node
+			tmp = new_node.next
+			new_node.next = None
+			return (tmp)
 
 	def addHead(self, item):
 		new_node = Node(item)
@@ -140,23 +145,68 @@ def	remove_intersec(nodes, heads, intersec):
 	for head in heads:
 		curr = head
 		while (curr):
-			if (need_head):
-				new_heads.append(curr)
-				need_head = 0
 			tmp = curr.next
-			if (curr.next in intersec):
-				print(f"{curr.next.value} is in intersec")
-				tmp = tmp.next
+			if (tmp in intersec):
 				curr.next = None
-				need_head = 1
+				tmp = tmp.next
+				if (tmp not in heads):
+					heads.append(tmp)
 			curr = tmp
-	return (new_heads)
-	
+
+def	sorting_head(heads,  nodes):
+	sorted_heads = []
+	key = list(nodes.keys())
+	key.sort()
+	sorted_nodes = {i : nodes[i] for i in key}
+	for addr in sorted_nodes.values():
+		if (addr in heads):
+			sorted_heads.append(addr)
+	return (sorted_heads)
+
+def ft_size(node):
+		curr,cnt = node,0
+		while (curr):
+			curr = curr.next
+			cnt += 1
+		return (cnt)
+
+def	max_size(heads):
+	max = 0
+	for head in heads:
+		if (ft_size(head) > max):
+			max = ft_size(head)
+	return (max)
+		
+
+def nex_curr(curr):
+	next_curr = [curr.next for curr in next]
+
+
+def	swap_merge(heads):
+	ll = LinkedList()
+	lim = max_size(heads)
+	print(f"max size is {lim}")
+	currs = [head for head in heads]
+	i = 0
+	j = 0
+	while (i < lim):
+		print(f"i is {i}")
+		j = 0
+		for curr in currs:
+			if (curr != None):
+				tmp = curr
+				currs[j] = ll.append(tmp)
+				print(f"tmp is {tmp.value} and next is {curr.value}")
+			else:
+				print("curr is None")
+			j += 1
+			# curr = next_curr(curr)
+		i += 1
+	return (ll)
+			
 
 
 
-
-ll = LinkedList()
 nodes = dict()
 inp = input("Enter edges: ").split(',')
 for i in inp:
@@ -176,7 +226,11 @@ heads = get_heads(inp, nodes)
 intersec = get_intersec(nodes, heads)
 print(intersec)
 # remove intersec
-print(f"new head is {remove_intersec(nodes, heads, intersec)}")
+# get new head
+remove_intersec(nodes, heads, intersec)
+# sorting head
+heads = sorting_head(heads, nodes)
+# print(heads)
 for head in heads:
 	curr = head
 	while (curr):
@@ -184,6 +238,8 @@ for head in heads:
 		curr = curr.next
 	print()
 	print('---')
-# get new head
+# ok i can get it
 # swap merge
+ll = swap_merge(heads)
+print(ll)
 
