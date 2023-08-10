@@ -136,7 +136,7 @@ def	get_intersec(nodes, heads):
 		while (curr):
 			if (curr not in passed):
 				passed.append(curr)
-			elif (curr not in intersec):
+			if (curr in passed and curr not in intersec):
 				intersec.append(curr)
 				break
 			curr = curr.next
