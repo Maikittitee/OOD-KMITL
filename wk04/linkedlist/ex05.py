@@ -162,21 +162,6 @@ def	do_riffle(head:LinkedList, r, size):
 	else:
 		old_head.next = target_head
 
-def	do_deriffle(head:LinkedList, r:float, size:int):
-	do_riffle(head, r, size)
-	do_riffle(head, r, size)
-	do_riffle(head, r, size)
-	do_riffle(head, r, size)
-	do_riffle(head, r, size)
-	do_riffle(head, r, size)
-	do_riffle(head, r, size)
-	do_riffle(head, r, size)
-
-	# size - 1
-	
-
-
-
 def	dup_ll(head):
 	new_list = LinkedList()
 	curr = head.head
@@ -184,6 +169,7 @@ def	dup_ll(head):
 		new_list.append(curr.value)
 		curr = curr.next
 	return (new_list)
+
 def scarmble(head:LinkedList, b:float, r:float, size):
 	start_linklist = dup_ll(head, )
 	print(f"BottomUp {b:.3f} % : ", end = '')
