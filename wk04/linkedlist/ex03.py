@@ -233,6 +233,11 @@ def	print_intersec(intersec):
 	for node in intersec:
 		print(f"Node({node.value}, size={ft_size_promax(node, intersec)})")
 
+def	remove_intersec_head(heads:list, intersec):
+	tmps = [i for i in heads]
+	for tmp in tmps:
+		if (tmp in intersec):
+			heads.remove(tmp)
 
 nodes = dict()
 inp = input("Enter edges: ").split(',')
@@ -245,13 +250,6 @@ for i in inp:
 		nodes.update({first: Node(first)})
 	if (nodes.get(sec) == None):
 		nodes.update({sec: Node(sec)})
-
-def	remove_intersec_head(heads:list, intersec):
-	tmps = [i for i in heads]
-	for tmp in tmps:
-		if (tmp in intersec):
-			heads.remove(tmp)
-
 
 join_node(inp, nodes)
 # print(nodes)
