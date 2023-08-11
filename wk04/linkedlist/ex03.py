@@ -136,11 +136,21 @@ def	get_intersec(nodes, heads):
 		while (curr):
 			if (curr not in passed):
 				passed.append(curr)
-			if (curr in passed and curr not in intersec):
+			# elif (curr not in intersec):
+			else:
 				intersec.append(curr)
 				break
 			curr = curr.next
-	return (intersec)
+	# passed = []
+	# intersec = []
+	# for head in heads:
+	# 	curr = head
+	# 	while (curr):
+	# 		if (curr in passed):
+	# 			intersec.append(curr)
+	# 		passed.append(curr)
+	# 		curr = curr.next
+	return (set(intersec))
 
 def	remove_intersec(nodes, heads, intersec):
 	new_heads = []
@@ -264,13 +274,13 @@ remove_intersec_head(heads, intersec)
 # sorting head
 heads = sorting_head(heads, nodes)
 # print(heads)
-for head in heads:
-	curr = head
-	while (curr):
-		print(curr.value, end="->")
-		curr = curr.next
-	print()
-	print('---')
+# for head in heads:
+# 	curr = head
+# 	while (curr):
+# 		print(curr.value, end="->")
+# 		curr = curr.next
+# 	print()
+# 	print('---')
 # ok i can get it
 # swap merge
 print("Delete intersection then swap merge:")
