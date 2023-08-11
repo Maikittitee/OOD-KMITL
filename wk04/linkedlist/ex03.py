@@ -38,32 +38,6 @@ class LinkedList:
 			new_node.next = None
 			return (tmp)
 
-	def addHead(self, item):
-		new_node = Node(item)
-		if (self.isEmpty()):
-			self.head = new_node
-		else:
-			new_node.next,self.head = self.head,new_node
-			# self.head = new_node
-
-	def search(self, item):
-		curr = self.head
-		while (curr and curr.value != item):
-			curr = curr.next
-		if (not curr):
-			return (f"Not Found {item}")
-		return (f"Found {item}")
-
-	def index(self, item):
-		curr,cnt = self.head,0
-		while (curr and curr.value != item):
-			curr = curr.next
-			cnt += 1
-		if (not curr):
-			return (-1)
-		return (cnt)	
-		# Code Here
-
 	def size(self):
 		if (self.isEmpty()):
 			return (0)
@@ -114,19 +88,13 @@ def	get_heads(inp, checker):
 		ele = i.split('>')
 		first = ele[0]
 		sec = ele[1]
-		# print(f"when {i} ---")
 		if (head_checker.get(first) == None):
 			head_checker[first] = checker.get(first)
-			# print(f"{first} is head")
 		if  (pointed_checker.get(sec) == None):
 			pointed_checker[sec] = checker.get(sec)
-			# print(f"{sec} was point")
-
 	for k,v in head_checker.items():
 		if (pointed_checker.get(k) == None):
 			ret_list.append(v)
-			# print(f"append {k} to heads")
-	
 	return (ret_list)
 
 def	get_intersec(nodes, heads):
@@ -137,20 +105,10 @@ def	get_intersec(nodes, heads):
 		while (curr):
 			if (curr not in passed):
 				passed.append(curr)
-			# elif (curr not in intersec):
 			else:
 				intersec.append(curr)
 				break
 			curr = curr.next
-	# passed = []
-	# intersec = []
-	# for head in heads:
-	# 	curr = head
-	# 	while (curr):
-	# 		if (curr in passed):
-	# 			intersec.append(curr)
-	# 		passed.append(curr)
-	# 		curr = curr.next
 	return (set(intersec))
 
 def	remove_intersec(nodes, heads, intersec):
@@ -179,7 +137,6 @@ def ft_size(node):
 		curr,cnt = node,0
 		while (curr):
 			curr = curr.next
-			# print("eiei is here")
 			cnt += 1
 		return (cnt)
 
@@ -191,29 +148,19 @@ def	max_size(heads):
 	return (max)
 		
 
-def nex_curr(curr):
-	next_curr = [curr.next for curr in next]
-
-
 def	swap_merge(heads):
 	ll = LinkedList()
 	lim = max_size(heads)
-	# print(f"max size is {lim}")
 	currs = [head for head in heads]
 	i = 0
 	j = 0
 	while (i < lim):
-		# print(f"i is {i}")
 		j = 0
 		for curr in currs:
 			if (curr != None):
 				tmp = curr
 				currs[j] = ll.append(tmp)
-				# print(f"tmp is {tmp.value} and next is {curr.value}")
-			# else:
-				# print("curr is None")
 			j += 1
-			# curr = next_curr(curr)
 		i += 1
 	return (ll)
 
@@ -224,7 +171,6 @@ def ft_size_promax(node, intersec):
 			passed.append(curr)
 			curr = curr.next
 			cnt += 1
-			# print("eiei is here2")
 			if (curr in passed):
 				break
 		return (cnt)
@@ -245,7 +191,6 @@ for i in inp:
 	ele = i.split('>')
 	first = ele[0]
 	sec = ele[1]
-	# print(checker.get(first))
 	if (nodes.get(first) == None):
 		nodes.update({first: Node(first)})
 	if (nodes.get(sec) == None):
