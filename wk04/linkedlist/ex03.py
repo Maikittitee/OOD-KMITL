@@ -1,3 +1,4 @@
+
 class Node:
 	def __init__(self, value):
 		self.value = value
@@ -153,8 +154,6 @@ def	get_intersec(nodes, heads):
 	return (set(intersec))
 
 def	remove_intersec(nodes, heads, intersec):
-	new_heads = []
-	need_head = 0
 	for head in heads:
 		curr = head
 		while (curr):
@@ -168,9 +167,9 @@ def	remove_intersec(nodes, heads, intersec):
 
 def	sorting_head(heads,  nodes):
 	sorted_heads = []
-	key = list(nodes.keys())
+	key = list(map(int, nodes.keys()))
 	key.sort()
-	sorted_nodes = {i : nodes[i] for i in key}
+	sorted_nodes = {str(i) : nodes[str(i)] for i in key}
 	for addr in sorted_nodes.values():
 		if (addr in heads):
 			sorted_heads.append(addr)
@@ -253,7 +252,6 @@ def	remove_intersec_head(heads:list, intersec):
 		if (tmp in intersec):
 			heads.remove(tmp)
 
-		
 
 join_node(inp, nodes)
 # print(nodes)
