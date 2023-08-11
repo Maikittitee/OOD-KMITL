@@ -133,6 +133,17 @@ def	sorting_head(heads,  nodes):
 			sorted_heads.append(addr)
 	return (sorted_heads)
 
+def ft_size_promax(node, intersec):
+		passed = []
+		curr,cnt = node,0
+		while (curr):
+			passed.append(curr)
+			curr = curr.next
+			cnt += 1
+			if (curr in passed):
+				break
+		return (cnt)
+
 def ft_size(node):
 		curr,cnt = node,0
 		while (curr):
@@ -163,17 +174,6 @@ def	swap_merge(heads):
 			j += 1
 		i += 1
 	return (ll)
-
-def ft_size_promax(node, intersec):
-		passed = []
-		curr,cnt = node,0
-		while (curr):
-			passed.append(curr)
-			curr = curr.next
-			cnt += 1
-			if (curr in passed):
-				break
-		return (cnt)
 
 def	print_intersec(intersec):
 	for node in intersec:
