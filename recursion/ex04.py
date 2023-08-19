@@ -1,22 +1,22 @@
 
 
-
-def get_unique_partition(l:list, n:int, sum, target) -> list:
-	checker = l[0]
+def get_unique_partition(n, max, l) -> list:
 	if (n == 0):
-		return ('0')
-	if (n == 1):
-		return ('1')
-	l.append(get_unique_partition(l, n - 1))
-		
-	return ()
+		print(f"when max is {max} is work!")
+		return (1)
+	if (n < 0 or max == 0):
+		return (0)
+	return (get_unique_partition(n - max, max, l) + get_unique_partition(n, max - 1, l))
 
 
 
 l = []
 n, s = list(map(int, input("Enter n, s: ").split()))
-l.append([n])
-print(get_unique_partition(l, n))
+# l.append([n])
+print(f"there have {get_unique_partition(n, n, l)} solutions");
+
+print()
+print(l)
 
 # def partition_helper(n, max_val, current_partition):
 #     if n == 0:
