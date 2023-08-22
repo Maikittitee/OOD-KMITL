@@ -1,44 +1,44 @@
-def fn(i, st):
-	if not st:
-		st.append(i)
+
+def asteroid_collision(curr, aster: list, st = []) -> list:
+	if (len(aster) == 0):
 		return
+	if not st:
+		st.append(curr)
 	else:
-		if st[-1]<0:
-			st.append(i)
+		if (st[-1] < 0):
+			st.append(curr)
 			return
 		else:
-			if i>0:
-				st.append(i)
-				return
+			if (curr > 0):
+				st.append(curr)
 			else:
-				if abs(i) == st[-1]:
+				if (abs(curr) == abs(st[-1])):
 					st.pop()
-					return
 				else:
 					x = st.pop()
-					if abs(i)>abs(x):
-						fn(i, st)
+					if (abs(curr) > abs(x)):
+						asteroid_collision(curr, aster, st)
 					else:
-						fn(x, st)
-					return
-				
+						asteroid_collision(x, aster, st)
+
 def ft_map_promax_ultra(st, aster):
 	if (len(aster) <= 0):
 		return
-	fn(aster[0], st)
-	ft_map_promax_ultra(st, aster[1:])
-	
-def asteroid_collision(aster: list) -> list:
-	st = []
-		# for i in aster:
-		#     fn(i, st)
-	ft_map_promax_ultra(st, aster)
-	return st
+	asteroid_collision(aster[0], aster, st)
+	ft_map_promax_ultra(st, aster[1:])	
 
+def trim_space_recur(curr, inp: list):
+	if (len(inp) <= 0):
+		return
+	curr 
+
+st = []
 x = input("Enter Input : ")
-if (' ' in x):
-	x = x.split(", ")
-else:
-	x = x.split(",")
-x = list(map(int,x))
-print(asteroid_collision(x))
+# if (' ' in x):
+# 	x = x.split(", ")
+# else:
+x = x.split(",")
+x = list(map(int, map(lambda x: x.strip(), x)))
+ft_map_promax_ultra(st, x)
+# asteroid_collision(x[0], x, st)
+print(st)
