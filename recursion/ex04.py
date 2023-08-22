@@ -1,28 +1,45 @@
+def integer_partition(n, target, result, ans):
+    if n == 0:
+        ans.append(' + '.join(map(str, result)))
+        return
+    i = min(target, n)
+    if i > 0:
+        result.append(i)
+        integer_partition(n - i, i, result, ans)
+        result.pop()
+        integer_partition(n, i - 1, result, ans)
 
+def	display_ans(ans, lim, i, point):
+	if (lim == i or len(ans) == i):
+		if (point == 1):
+			print(". . .")
+		return
+	print(ans[i])
+	display_ans(ans, lim, i + 1, point)
+	
 
-def get_unique_partition(n, max, l) -> list:
-	if (n == 0):
-		print(f"when max is {max} is work!")
-		return (1)
-	if (n < 0 or max == 0):
-		return (0)
-	return (get_unique_partition(n - max, max, l) + get_unique_partition(n, max - 1, l))
-
-
-
-l = []
+ans = []
+res = []
 n, s = list(map(int, input("Enter n, s: ").split()))
 # l.append([n])
-print(f"there have {get_unique_partition(n, n, l)} solutions");
+if (n == 0):
+	ans.append("0")
+else:
+	integer_partition(n, n, res, ans)
 
-print()
-print(l)
+# print(ans)
+# print(res)
+if (len(ans) > s):
+	display_ans(ans, s, 0, 1)
+else:
+	display_ans(ans, s, 0, 0)
+print(f"Total: {len(ans)}")
 
 # def partition_helper(n, max_val, current_partition):
 #     if n == 0:
 #         print(current_partition)
 #         return
-    
+	
 #     for i in range(1, min(n, max_val) + 1):
 #         partition_helper(n - i, i, current_partition + [i])
 
