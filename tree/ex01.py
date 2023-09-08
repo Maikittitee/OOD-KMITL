@@ -65,17 +65,16 @@ t = BST()
 l = [5,2,7,1,4,6,3]
 for i in l:
 	t.insert(i)
-t.print()
-# a = None
-# a = Node.insert(a, 1)
+t.inorder()
 
-'''
-	7	
-		6
-5
-		4
-			3
-	2
-		1
+def get_less_than(node: Node , n: int):
+	if (node == None):
+		return []
+	if (node.data < n):
+		return (get_less_than(node.left, n) + [node.data] + get_less_than(node.right, n))
+	return (get_less_than(node.left, n))
+	
+	
 
-'''
+
+print(get_less_than(t.root, 7))
