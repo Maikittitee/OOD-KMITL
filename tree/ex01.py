@@ -47,22 +47,7 @@ class BST:
 		self.root = None
 
 	def insert(self, new_data):
-		new_node = Node(new_data)
-		if (not self.root):
-			self.root = new_node
-		else:
-			curr = self.root
-			while (curr != None):
-				if (new_data < curr.data):
-					if (curr.left == None):
-						curr.left = new_node
-						return 
-					curr = curr.left
-				else:
-					if (curr.right == None):
-						curr.right = new_node
-						return 
-					curr = curr.right
+		self.root = Node.insert(self.root, new_data)
 		
 	def inorder(self):
 		Node.inorder(self.root)
