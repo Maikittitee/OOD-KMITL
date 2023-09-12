@@ -23,19 +23,69 @@ class BinarySearchTree:
 		self.root = None
 
 	def insert(self, val):
-		self.root = Node.insert(self.root, val)
+		# self.root = Node.insert(self.root, val)
+		a = Node(val)
+		if self.root is None:
+			self.root = a
+			return self.root
+		else:
+			t=self.root
+			while True:
+				if val <= t.data:
+					if t.left is None:
+						t.left = a
+						return self.root
+					else:
+						t = t.left
+				else:
+					if t.right is None:
+						t.right = a
+						return self.root
+					else:
+						t = t.right
 
 	def delete(self, r, data):
-		pass
-		#code here
-				
-def printTree90(node, level = 0):
-	if node != None:
-		printTree90(node.right, level + 1)
-		print('     ' * level, node)
-		printTree90(node.left, level + 1)
+			if r is None:
+				print("Error! Not Found DATA")
+				return
+			if r.data != data: 
+				if data<r.data:
+					r.left = self.delete(r.left, data) 
+				elif data> r.data:
+					r.right = self.delete(r.right, data)  
+			else:   
+
+				if r.left is None:   
+					r = r.right
+					return r
+				elif r.right is None:  
+					r = r.left
+					return r
+				else:
+					current = r.right
+					while current.left is not None:
+						current = current.left
+
+					r.data = current.data    
+					
+					r.right = self.delete(r.right, current.data)
+			return r
+
+	def printTree90(self, node, level = 0):
+		if node != None:
+			self.printTree90(node.right, level + 1)
+			print('     ' * level, node)
+			self.printTree90(node.left, level + 1)
 
 
 tree = BinarySearchTree()
-data = input("Enter Input : ").split(",")
-#code here
+val = input("Enter Input : ").split(",")
+for i in range(len(val)):
+	if val[i][0] == 'i':
+		print("insert " + (val[i][2:]))
+		tree.root = tree.insert(int(val[i][2:]))
+		tree.printTree90(tree.root)
+	if val[i][0] == 'd':
+		print("delete " + (val[i][2:]))
+		tree.root = tree.delete(tree.root, int(val[i][2:]))
+		tree.printTree90(tree.root)

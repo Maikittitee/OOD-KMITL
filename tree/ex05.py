@@ -19,68 +19,6 @@ class Node:
 		else:
 			node.right = Node.insert(node.right, new_data)
 		return (node)
-
-	def count_r_space(node):
-		if (node == None):
-			return (0)
-		elif (node.data < 0):
-			return (2 + Node.count_r_space(node.right))
-		return (1 + Node.count_r_space(node.right))
-
-	def count_l_space(node):
-		if (node == None):
-			return (0)
-		elif (node.data < 0):
-			return (2 + Node.count_l_space(node.left))
-		return (1 + Node.count_l_space(node.left))
-
-
-	def print_promax(node):
-		"""Returns list of strings, width, height, and horizontal coordinate of the root."""
-		# No child.
-		if node.right is None and node.left is None:
-			line = '%s' % node.data
-			width = len(line)
-			height = 1
-			middle = width // 2
-			return [line], width, height, middle
-
-		# Only left child.
-		if node.right is None:
-			lines, n, p, x = node.left.print_promax()
-			s = '%s' % node.data
-			u = len(s)
-			first_line = (x + 1) * ' ' + (n - x - 1) * '_' + s
-			second_line = x * ' ' + '/' + (n - x - 1 + u) * ' '
-			shifted_lines = [line + u * ' ' for line in lines]
-			return [first_line, second_line] + shifted_lines, n + u, p + 2, n + u // 2
-
-		# Only right child.
-		if node.left is None:
-			lines, n, p, x = node.right.print_promax()
-			s = '%s' % node.data
-			u = len(s)
-			first_line = s + x * '_' + (n - x) * ' '
-			second_line = (u + x) * ' ' + '\\' + (n - x - 1) * ' '
-			shifted_lines = [u * ' ' + line for line in lines]
-			return [first_line, second_line] + shifted_lines, n + u, p + 2, u // 2
-
-		# Two children.
-		left, n, p, x = node.left.print_promax()
-		right, m, q, y = node.right.print_promax()
-		s = '%s' % node.data
-		u = len(s)
-		first_line = (x + 1) * ' ' + (n - x - 1) * '_' + s + y * '_' + (m - y) * ' '
-		second_line = x * ' ' + '/' + (n - x - 1 + u + y) * ' ' + '\\' + (m - y - 1) * ' '
-		if p < q:
-			left += [n * ' '] * (q - p)
-		elif q < p:
-			right += [m * ' '] * (p - q)
-		zipped_lines = zip(left, right)
-		lines = [first_line, second_line] + [a + u * ' ' + b for a, b in zipped_lines]
-		return lines, n + m + u, max(p, q) + 2, n + u // 2
-
-	
 	
 
 	def print(node, deep = 0):
@@ -90,6 +28,27 @@ class Node:
 		print(f"{'     ' * deep}{node.data}")
 		Node.print(node.left, deep + 1)
 
+	def gen_str(node, str_list:list = []) -> "tuple[str, int, int, int]":
+		if (node == None):
+			return [], 0, 0, 0
+		
+		# get data of its child
+		left, l_of_l, len_of_l, r_of_l = Node.gen_str(node.left)
+		right, l_of_r, len_of_r, r_of_r = Node.gen_str(node.right)
+
+		# join for str of its child
+		str_list.insert(0, str(' ' * (l_of_l + len_of_l + r_of_l + 1)) + left.pop() + str(' ' * len(str(node.data))) + right.pop + str(' ' * (r_of_r + len_of_r + l_of_r + 1)))
+		
+
+
+#   6
+#  / \
+# 5   10
+		pass
+
+
+		
+
 class BST:
 	def __init__(self):
 		self.root = None
@@ -98,21 +57,24 @@ class BST:
 		self.root = Node.insert(self.root, new_data)
 
 	def print_promax(self):
-		return (Node.print_promax(self.root))
+		s = Node.gen_str(self.root)
+		for i in s:
+			print(i)
 
-	def print_promax_ultra(self):
-		lines, a, b, c = self.print_promax()
-		for line in lines:
-			print(line)
 
 	def print(self):
 		Node.print(self.root)
 
+	def __str__(self) -> str:
+		lines = BST.print_promax(self.root, 0, False, "-")[0]
+		return "\n".join((line.rstrip() for line in lines))
+
 t = BST()
-inp = [int(i) for i in input('Enter Input : ').split()]
+inp = [int(i) for i in input('Enter input: ').split()]
 for i in inp:
 	root = t.insert(i)
-t.print_promax_ultra()
+t.print_promax()
+# print(t, end = '')
 
 # print("-----------------")
 # t.print()
