@@ -37,7 +37,8 @@ class Node:
 		right, l_of_r, len_of_r, r_of_r = Node.gen_str(node.right)
 
 		# join for str of its child
-		str_list.insert(0, str(' ' * (l_of_l + len_of_l + r_of_l + 1)) + left.pop() + str(' ' * len(str(node.data))) + right.pop + str(' ' * (r_of_r + len_of_r + l_of_r + 1)))
+
+		# (0, str(' ' * (l_of_l + len_of_l + r_of_l + 1)) + left.pop() + str(' ' * len(str(node.data))) + right.pop + str(' ' * (r_of_r + len_of_r + l_of_r + 1)))
 		
 
 
@@ -46,8 +47,6 @@ class Node:
 # 5   10
 		pass
 
-
-		
 
 class BST:
 	def __init__(self):
