@@ -49,6 +49,7 @@ class Node:
 		node.height = node.setHeight()
 		balance = node.balanceValue()
 		# print(f"balance of {node.data} is {balance}")
+		#1 LL
 		if balance > 1 and data < node.left.data:
 			return node.rightRotate(node)
  
