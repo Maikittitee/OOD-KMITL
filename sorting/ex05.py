@@ -13,6 +13,12 @@ class FootballTeam:
 	def get_goal_difference(self):
 		return (self.scored - self.conceded)
 	
+	def __str__(self) -> str:
+		idk = '{'
+		idc = '}'
+		return (f"['{self.name}', {idk}'points': {self.get_total_point()}{idc}, {idk}'gd': {self.get_goal_difference()}{idc}]")
+		
+	
 teams = []
 teams_input = input("Enter Input : ").split('/')
 for team in teams_input:
@@ -34,7 +40,8 @@ while (i < n):
 		j += 1
 	i += 1
 
+print("== results ==")
 for team in teams:
-	print(team.name)
+	print(team)
 
 
