@@ -16,6 +16,9 @@ def merge_sort(my_list, pior):
 
 	if len(my_list) <= 1:
 		return my_list
+
+	if (len(pior) == 1 and pior[0] == ''):
+		return (my_list)
    
 	list_1 = my_list[0:len(my_list) // 2]
 	list_2 = my_list[len(my_list) // 2:]
