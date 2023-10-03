@@ -9,7 +9,7 @@ class Monkey:
 		self.data = {"name":name, "str":strength, "int":intelligence, "agi":agility, "id":id}
 		
 	def __repr__(self) -> str:
-		return (self.name)
+		return (f"{self.id}-{self.name}")
 
 
 def merge_sort(my_list, pior):
@@ -32,25 +32,38 @@ def sort_two_list(list_1, list_2, piority):
 	s = 0
 	n_pior = len(piority)
 	while i < len(list_1) and j < len(list_2):
-		if list_1[i].data[piority[s]] < list_2[j].data[piority[s]]:
+		s = 0
+		if s < n_pior and list_1[i].data[piority[s]] < list_2[j].data[piority[s]]:
 			final_list.append(list_1[i])
 			i += 1
 			continue
-		elif (s < n_pior and list_1[i].data[piority[s]] == list_2[j].data[piority[s]]):
+		if (s < n_pior and list_1[i].data[piority[s]] == list_2[j].data[piority[s]]):
 			s += 1
 			if (s < n_pior and list_1[i].data[piority[s]] < list_2[j].data[piority[s]]):
 				final_list.append(list_1[i])
 				i += 1
 				continue	
-			elif (s < n_pior and list_1[i].data[piority[s]] == list_2[j].data[piority[s]]):
+			if (s < n_pior and list_1[i].data[piority[s]] == list_2[j].data[piority[s]]):
 				s += 1
 				if (s < n_pior and list_1[i].data[piority[s]] < list_2[j].data[piority[s]]):
 					final_list.append(list_1[i])
 					i += 1
-					continue	
-		else:
-			final_list.append(list_2[j])
-			j += 1
+					continue
+				if (s < n_pior and list_1[i].data[piority[s]] == list_2[j].data[piority[s]]):
+					s += 1
+					if (s < n_pior and list_1[i].data[piority[s]] < list_2[j].data[piority[s]]):
+						final_list.append(list_1[i])
+						i += 1
+						continue
+					if (s < n_pior and list_1[i].data[piority[s]] == list_2[j].data[piority[s]]):
+						s += 1
+						if (s < n_pior and list_1[i].data[piority[s]] < list_2[j].data[piority[s]]):
+							final_list.append(list_1[i])
+							i += 1
+							continue
+		final_list.append(list_2[j])
+		j += 1
+
 
 	while i < len(list_1):
 		final_list.append(list_1[i])
@@ -63,10 +76,22 @@ def sort_two_list(list_1, list_2, piority):
 	return final_list
 
 l = []
-l.append(Monkey("mai",5,1,1,1))
-l.append(Monkey("dick",4,3,1,1))
-l.append(Monkey("jack",4,2,1,1))
-pior = ["str", "int"]
-print(merge_sort(l, pior))
 
+inp = input("Enter Input: ").split('/')
+mode = inp[0]
+if (mode == 'D'):
+	reverse = True
+else:
+	reverse = False
+pior = inp[1].split(',')
+arg = inp[2].split(',')
+for i in range(len(arg)):
+	name,stre,intel,agi = arg[i].split()
+	l.append(Monkey(name,int(stre),int(intel),int(agi),int(i)))
+
+print(f"pior is {pior}")
+sorted_list = merge_sort(l, pior)
+if (reverse):
+	sorted_list = list(reversed(sorted_list))
+print(sorted_list)
 
