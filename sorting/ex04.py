@@ -42,28 +42,27 @@ def sort_two_list(list_1, list_2, piority):
 			continue
 		if (s < n_pior and list_1[i].data[piority[s]] == list_2[j].data[piority[s]]):
 			s += 1
-			if (s < n_pior and list_1[i].data[piority[s]] < list_2[j].data[piority[s]]):
-				final_list.append(list_1[i])
-				i += 1
-				continue	
-			if (s < n_pior and list_1[i].data[piority[s]] == list_2[j].data[piority[s]]):
-				s += 1
-				if (s < n_pior and list_1[i].data[piority[s]] < list_2[j].data[piority[s]]):
+			if (s < n_pior):
+				if (list_1[i].data[piority[s]] < list_2[j].data[piority[s]]):
 					final_list.append(list_1[i])
 					i += 1
 					continue
-				if (s < n_pior and list_1[i].data[piority[s]] == list_2[j].data[piority[s]]):
+				elif (s < n_pior):
 					s += 1
-					if (s < n_pior and list_1[i].data[piority[s]] < list_2[j].data[piority[s]]):
+					if (list_1[i].data[piority[s]] < list_2[j].data[piority[s]]):
 						final_list.append(list_1[i])
 						i += 1
 						continue
-					if (s < n_pior and list_1[i].data[piority[s]] == list_2[j].data[piority[s]]):
+					elif (s < n_pior):
 						s += 1
-						if (s < n_pior and list_1[i].data[piority[s]] < list_2[j].data[piority[s]]):
+						if (list_1[i].data[piority[s]] < list_2[j].data[piority[s]]):
 							final_list.append(list_1[i])
 							i += 1
 							continue
+
+			else:
+				final_list.append(list_1[i])
+
 		final_list.append(list_2[j])
 		j += 1
 
