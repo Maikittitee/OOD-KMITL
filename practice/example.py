@@ -91,16 +91,16 @@ class BST:
 		return (Node.traverse_bfs(q))
 
 
-import sys
+# import sys
 
-t = BST()
-if (len(sys.argv) == 1):
-	l = [5,2,7,1,4,6,3]
-else:
-	l = sys.argv[1:]
+# t = BST()
+# if (len(sys.argv) == 1):
+# 	l = [5,2,7,1,4,6,3]
+# else:
+# 	l = sys.argv[1:]
 
-for i in l:
-	t.insert(i)
-print(f"iterative: {t.bfs_iter()}")
-print(f"recursive: {t.bfs_recur()}")
+# for i in l:
+# 	t.insert(i)
+# print(f"iterative: {t.bfs_iter()}")
+# print(f"recursive: {t.bfs_recur()}")
 
